@@ -40,14 +40,19 @@ def player_turn():
 def pc_turn():
     turn_score = 0
     while True:
-        result = Dice_Roll()
-        if result == 1:
-            turn_score = 0
+        if turn_score < 20:
+            result = Dice_Roll()
+            if result == 1:
+                turn_score = 0
 
-            return turn_score
+                return turn_score
 
+            else:
+                turn_score = turn_score + result
+        
         else:
-            turn_score = turn_score + result
+            print("the computer got", turn_score, "points this turn")
+            return turn_score
 
 
 
@@ -58,8 +63,19 @@ def pc_turn():
 
 
 player_score = 0
+robot_score = 0
 
-
-while player_score < 50:
+while True:
     player_score = player_turn() + player_score
     print("you have ", player_score, "points in total")
+    if player_score > 49:
+        print("you win")
+        break
+
+
+
+    robot_score = pc_turn() + robot_score
+    print("the robot has ", robot_score, "points in total")
+    if robot_score > 49:
+        print("the robot won")
+        break
